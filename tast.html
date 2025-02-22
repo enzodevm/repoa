@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Nome de usuário" value="enzo">
+    <button onclick="login()">Entrar</button>
+    <p id="message"></p>
+
+    <script>
+        function login() {
+            // Captura o nome de usuário inserido pelo usuário
+            let username = document.getElementById("username").value;
+
+            // Faz a requisição GET para a API com o nome de usuário fornecido
+            fetch(`http://localhost:3000/login?username=${username}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Resposta da API:", data);
+                document.getElementById("message").innerText = data.token 
+                    ? "Login bem-sucedido! Token gerado."
+                    : "Usuário não autorizado.";
+            })
+            .catch(error => console.error("Erro ao conectar à API:", error));
+        }
+    </script>
+</body>
+</html>
